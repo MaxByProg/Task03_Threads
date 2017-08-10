@@ -1,4 +1,4 @@
-package Task02_Structure;
+package Task03_Threads;
 
 import java.text.*;
 import java.util.*;
@@ -7,48 +7,30 @@ import java.util.*;
  */
 public class SortDate {
 
-//    public static void main(String[] args) {
-//
-//        ArrayList<String> dates = new ArrayList<String>() {
-//            {
-//                add("10.11.2012 21:12:23");
-//                add("10.11.2012 21:12:23");
-//                add("10.11.2012 21:15:23");
-//                add("10.11.2012 21:15");
-//            }
-//        };
-//
-//        UntilMinuteComparator comparator = new UntilMinuteComparator();
-//        System.out.println(isWarn(dates.get(0), dates.get(1), comparator));
-//        System.out.println(isWarn(dates.get(0), dates.get(2), comparator));
-//        System.out.println(isWarn(dates.get(0), dates.get(3), comparator));
-//
-//    }
-
-    public static String isWarn(String s1, String s2, Comparator<String> cmp) {
-        return cmp.compare(s1, s2) == 0 ? "Warning" : "OK";
-    }
-
-    public static class UntilMinuteComparator implements Comparator<String> {
-        SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        SimpleDateFormat sdf2 = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        Date d1, d2;
-        String s1, s2;
-
-        @Override
-        public int compare(String o1, String o2) {
-            try {
-                d1 = sdf1.parse(o1);
-                d2 = sdf1.parse(o2);
-                s1 = sdf2.format(d1);
-                s2 = sdf2.format(d2);
-            } catch (ParseException e) {
-                throw new RuntimeException("Date format unsupported");
+    // метод для сортировки дат
+    public List<String> sortDate(List<String> list) {
+        List<Date> comparedList = new ArrayList<>(); // лист с датами
+        List<String> stringList = new ArrayList<>();// итоговый отформатированный лист
+        SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date date;
+        // парсим даты и добавляем в comparedList
+        try {
+            for (int i = 0; i < list.size(); i++) {
+                date = parser.parse(list.get(i));
+                comparedList.add(date);
             }
-
-            return s1.compareTo(s2);
+        } catch (ParseException e) {
+            e.printStackTrace();
         }
 
+        Collections.sort(comparedList); // сортируем comparedList
+
+        //форматируем отсортированный comparedList и добавляем данные в stringList
+        for (int i = 0; i < comparedList.size() ; i++) {
+            stringList.add(parser.format(comparedList.get(i)));
+        }
+
+        return stringList;
     }
 
 }

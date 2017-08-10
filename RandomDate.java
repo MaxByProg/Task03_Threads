@@ -10,9 +10,10 @@ import java.util.Random;
  * Created by mbikov on 09.08.2017.
  */
 public class RandomDate {
-    Long max =1000000000000L;
+    Long max =10000000000000L;
     SimpleDateFormat spf = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
+    // метод для создания файла, содержащего случайные даты
     public void randomDate() {
         try {
             PrintWriter writer = new PrintWriter("C:\\Users\\mbikov\\Desktop\\Task03\\Task03.txt", "UTF-8");
