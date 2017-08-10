@@ -8,34 +8,31 @@ import java.util.*;
  */
 class MultiThread implements Runnable{
     private static BufferedReader br = null;
-    private List<String> list;
-    public static List<String> endList = new ArrayList<>();
+    public static List<String> endList = new ArrayList<>(); // итоговый массив со считанными датами из файла
 
 
     static{
         try {
-            br = new BufferedReader(new FileReader("C:\\Users\\mbikov\\Desktop\\Task03\\Task03.txt"), 10);
+            br = new BufferedReader(new FileReader("C:\\Users\\mbikov\\Desktop\\Task03\\Task03.txt"));
         } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
 
+    // переопределили метод для считывания данных из файла построчно
     public void run() {
-        long timeout = System.currentTimeMillis();
+        long timeout = System.currentTimeMillis(); //засекаем время работы метода
         String line = null;
         int count = 0;
         while(true) {
-            this.list = new ArrayList<>();
             synchronized(br) {
                 try {
                     while((line = br.readLine()) != null) {
                         if(count<50) {
-                            list.add(line);
                             endList.add(line);
                             count++;
                         }else {
-                            list.add(line);
                             endList.add(line);
                             count = 0;
                             break;
@@ -47,7 +44,6 @@ class MultiThread implements Runnable{
             }
             try {
                 Thread.sleep(1);
-                //display(this.endList);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -57,13 +53,6 @@ class MultiThread implements Runnable{
         timeout = System.currentTimeMillis() - timeout;
         System.out.println(timeout);
 
-    }
-
-    public void display(List<String> list) {
-//        for(String str:list) {
-//            System.out.println(str);
-//        }
-        System.out.println(list.size());
     }
 
 }
