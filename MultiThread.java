@@ -7,7 +7,7 @@ import java.util.*;
  * Created by mbikov on 09.08.2017.
  */
 class MultiThread extends Thread implements FilePaths{
-    private BufferedReader br = null;
+    private BufferedReader br;
     private static File file;
     private int start;
     private int num;
@@ -37,11 +37,11 @@ class MultiThread extends Thread implements FilePaths{
                 br.skip(start * (file.length() / num));
             while ((line = br.readLine()) != null && count < file.length() / num) {
                 endList.add(line);
-                count += line.length();
+                count += line.length() + 2;
             }
             System.out.println(count);
-            System.out.println(file.length()/num);
             System.out.println(start * (file.length() / num));
+            System.out.println(file.length());
             br.close();
         } catch (IOException e) {
             e.printStackTrace();

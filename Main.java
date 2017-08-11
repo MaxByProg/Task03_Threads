@@ -42,16 +42,6 @@ public class Main implements FilePaths {
         }
 
 
-//        try {
-//            PrintWriter writer = new PrintWriter(outDataFile, "UTF-8");
-//            for (int i = 0; i < list2.size(); i++) {
-//                writer.println(list2.get(i));
-//            }
-//            writer.close();
-//        }catch(IOException e) {
-//            e.printStackTrace();
-//        }
-
         SortDate compared = new SortDate();
         list1 = compared.sortDate(list2);
         SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");

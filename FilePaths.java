@@ -6,4 +6,5 @@ package Task03_Threads;
 public interface FilePaths {
     String dataFile = "C:\\Users\\mbikov\\Desktop\\Task03\\Task03.txt";
     String outDataFile = "C:\\Users\\mbikov\\Desktop\\Task03\\Task03_Sorted.txt";
+    String testFile = "C:\\Users\\mbikov\\Desktop\\Task03\\Task03_Test.txt";
 }
