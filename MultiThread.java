@@ -6,53 +6,46 @@ import java.util.*;
 /**
  * Created by mbikov on 09.08.2017.
  */
-class MultiThread implements Runnable{
-    private static BufferedReader br = null;
-    public static List<String> endList = new ArrayList<>(); // итоговый массив со считанными датами из файла
+class MultiThread extends Thread implements FilePaths{
+    private BufferedReader br = null;
+    private static File file;
+    private int start;
+    private int num;
+    private List<String> endList;
 
-
-    static{
+    MultiThread(File file, int num, int start) {
         try {
-            br = new BufferedReader(new FileReader("C:\\Users\\mbikov\\Desktop\\Task03\\Task03.txt"));
-        } catch (FileNotFoundException e) {
-            // TODO Auto-generated catch block
+            this.file = file;
+            br = new BufferedReader(new FileReader(file));
+            this.start = start;
+            this.num = num;
+            endList = new ArrayList<>();
+        } catch(FileNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    // переопределили метод для считывания данных из файла построчно
-    public void run() {
-        long timeout = System.currentTimeMillis(); //засекаем время работы метода
-        String line = null;
-        int count = 0;
-        while(true) {
-            synchronized(br) {
-                try {
-                    while((line = br.readLine()) != null) {
-                        if(count<50) {
-                            endList.add(line);
-                            count++;
-                        }else {
-                            endList.add(line);
-                            count = 0;
-                            break;
-                        }
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            if(line == null)
-                break;
-        }
-        timeout = System.currentTimeMillis() - timeout;
-        System.out.println(timeout);
-
+    public List<String> getEndList() {
+        return endList;
     }
 
-}
+    public void run() {
+        String line;
+        long count = 0;
+        try {
+            if(start > 0 && start < num)
+                br.skip(start * (file.length() / num));
+            while ((line = br.readLine()) != null && count < file.length() / num) {
+                endList.add(line);
+                count += line.length();
+            }
+            System.out.println(count);
+            System.out.println(file.length()/num);
+            System.out.println(start * (file.length() / num));
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        }
+
+    }

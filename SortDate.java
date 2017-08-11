@@ -8,9 +8,8 @@ import java.util.*;
 public class SortDate {
 
     // метод для сортировки дат
-    public List<String> sortDate(List<String> list) {
+    public List<Date> sortDate(List<String> list) {
         List<Date> comparedList = new ArrayList<>(); // лист с датами
-        List<String> stringList = new ArrayList<>();// итоговый отформатированный лист
         SimpleDateFormat parser = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
         Date date;
         // парсим даты и добавляем в comparedList
@@ -25,12 +24,7 @@ public class SortDate {
 
         Collections.sort(comparedList); // сортируем comparedList
 
-        //форматируем отсортированный comparedList и добавляем данные в stringList
-        for (int i = 0; i < comparedList.size() ; i++) {
-            stringList.add(parser.format(comparedList.get(i)));
-        }
-
-        return stringList;
+        return comparedList;
     }
 
 }
